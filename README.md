@@ -1,6 +1,6 @@
 ##FabProgress
  Android Circular floating action button with intergrated progress indicator ring
- ![As per material design docs](http://www.google.com/design/spec/components/progress-activity.html#progress-activity-types-of-indicators)
+[As per material design docs](http://www.google.com/design/spec/components/progress-activity.html#progress-activity-types-of-indicators)
 
 ##Demo:
 
