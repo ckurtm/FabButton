@@ -13,12 +13,12 @@
    [2]: https://developer.android.com/images/brand/en_app_rgb_wo_45.png (365 Body workout)
    
 ##HOW TO ADD TO YOUR PROJECT
+ [ ![Download](https://api.bintray.com/packages/ckurtm/maven/FabButton/images/download.svg) ](https://bintray.com/ckurtm/maven/FabButton/_latestVersion)
 
  Gradle:
- 
  ```groovy
  dependencies {
-         compile 'mbanje.kurt:fabbutton:1.0.0'
+         compile 'mbanje.kurt:fabbutton:1.0.1'
  }
  ```
 
