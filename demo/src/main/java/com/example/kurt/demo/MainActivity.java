@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import mbanje.kurt.fabbutton.FabButton;
 
@@ -46,7 +47,24 @@ public class MainActivity extends ActionBarActivity {
                 startIndeterminateProgress();
             }
         });
+        
+        
+        determinate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"determinate",Toast.LENGTH_SHORT).show();
+                startDeterminateProgress();
+            }
+        });
 
+
+        indeterminate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"indeterminate",Toast.LENGTH_SHORT).show();
+                startIndeterminateProgress();
+            }
+        });
     }
 
     private void startIndeterminateProgress() {
