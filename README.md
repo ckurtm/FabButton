@@ -5,8 +5,13 @@
 ##Demo:
 
 ![FabButton](example.gif)
+![365 Body Workout](365.gif)
 
+ [![alt text][2]][1]
  
+   [1]: https://play.google.com/store/apps/details?id=com.peirr.workout.play
+   [2]: https://developer.android.com/images/brand/en_app_rgb_wo_45.png (365 Body workout)
+   
 ##HOW TO ADD TO YOUR PROJECT
 
  Gradle:
@@ -40,3 +45,5 @@
         android:layout_marginBottom="48dp"
         />
 ```
+
+
