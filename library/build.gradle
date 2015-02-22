@@ -5,8 +5,8 @@ apply plugin: 'com.jfrog.bintray'
 version = "1.0.0"
 group = "mbanje.kurt"
 
-def siteUrl = 'https://github.com/ckurtm/DroidProvider'
-def gitUrl = 'https://github.com/ckurtm/DroidProvider.git'
+def siteUrl = 'https://github.com/ckurtm/FabButton'
+def gitUrl = 'https://github.com/ckurtm/FabButton.git'
 
 android {
     compileSdkVersion 21
