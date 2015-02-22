@@ -13,7 +13,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import mbanje.kurt.fabbutton.R;
 
 
 public class ProgressRingView extends View implements FabUtil.OnFabValueCallback{
@@ -125,7 +124,7 @@ public class ProgressRingView extends View implements FabUtil.OnFabValueCallback
 
     /**
      * Sets the progress of the progress bar.
-     * @param currentProgress
+     * @param currentProgress the current progress you want to set
      */
     public void setProgress(final float currentProgress) {
         this.progress = currentProgress;

@@ -16,8 +16,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import mbanje.kurt.fabbutton.R;
-
 
 public class CircleImageView extends ImageView {
 
