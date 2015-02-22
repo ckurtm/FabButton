@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+
+    <view
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"
+        class="mbanje.kurt.fabbutton.FabButton"
+        android:id="@+id/indeterminate"
+        android:layout_gravity="center"
+        android:color="#aa66cc"
+        android:src="@drawable/ic_fab_play"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:max="100"
+        app:autoStart="true"
+        app:progressColor="#0099cc"
+        app:progressWidthRatio="0.2"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/determinate"
+        android:layout_marginBottom="48dp"
+        />
+
+    <view
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"
+        class="mbanje.kurt.fabbutton.FabButton"
+        android:id="@+id/determinate"
+        android:layout_gravity="center"
+        android:color="#ff6e9cff"
+        android:src="@drawable/ic_fab_play"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        android:indeterminate="false"
+        android:max="100"
+        app:autoStart="true"
+        app:progressColor="#ff170aff"
+        app:progressWidthRatio="0.2"
+        />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/indeterminate"
+        android:layout_toStartOf="@+id/indeterminate" />
+
+</RelativeLayout>
