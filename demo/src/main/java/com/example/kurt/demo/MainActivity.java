@@ -65,6 +65,8 @@ public class MainActivity extends ActionBarActivity {
                 startIndeterminateProgress();
             }
         });
+
+
     }
 
     private void startIndeterminateProgress() {
