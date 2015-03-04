@@ -1,3 +1,27 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Kurt Mbanje
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package mbanje.kurt.fabbutton;
 
 import android.content.Context;
@@ -49,14 +73,14 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         if (attrs != null) {
             final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
             color = a.getColor(R.styleable.CircleImageView_android_color, Color.BLACK);
-            progressColor = a.getColor(R.styleable.CircleImageView_progressColor, Color.BLACK);
+            progressColor = a.getColor(R.styleable.CircleImageView_fbb_progressColor, Color.BLACK);
             progress = a.getFloat(R.styleable.CircleImageView_android_progress, 0f);
             maxProgress = a.getFloat(R.styleable.CircleImageView_android_max, 100f);
             indeterminate = a.getBoolean(R.styleable.CircleImageView_android_indeterminate, false);
-            autostartanim = a.getBoolean(R.styleable.CircleImageView_autoStart, true);
+            autostartanim = a.getBoolean(R.styleable.CircleImageView_fbb_autoStart, true);
             animDuration = a.getInteger(R.styleable.CircleImageView_android_indeterminateDuration, animDuration);
             icon = a.getResourceId(R.styleable.CircleImageView_android_src,icon);
-            ringWidthRatio = a.getFloat(R.styleable.CircleImageView_progressWidthRatio, ringWidthRatio);
+            ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
             a.recycle();
         }
 

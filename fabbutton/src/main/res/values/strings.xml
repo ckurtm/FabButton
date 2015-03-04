@@ -24,18 +24,6 @@
   -->
 
 <resources>
-
-    <declare-styleable name="CircleImageView">
-        <attr name="android:src" />
-        <attr name="android:color" />
-        <attr name="android:indeterminate"/>
-        <attr name="android:progress"/>
-        <attr name="android:max"/>
-        <attr name="android:indeterminateDuration"/>
-        <attr name="fbb_progressColor" format="reference|color"/>
-        <attr name="fbb_autoStart" format="boolean" />
-        <attr name="fbb_animSteps" format="integer" />
-        <attr name="fbb_progressWidthRatio" format="float" />
-    </declare-styleable>
-
+    <string name="library_name">fabbutton</string>
+    
 </resources>
