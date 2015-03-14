@@ -67,14 +67,11 @@ public class CircleImageView extends ImageView {
     private int ringWidth;
     private ObjectAnimator ringAnimator;
 
-
     float radiusY = 3.5f;
     float radiusX = 0f;
     float shadowRadius = 10f;
     int shadowTransparency = 100;
-
-
-
+    private boolean showEndBitmap;
     public CircleImageView(Context context) {
         super(context);
         init(context, null);
@@ -129,18 +126,26 @@ public class CircleImageView extends ImageView {
         });
     }
 
+    public void setShowEndBitmap(boolean showEndBitmap) {
+        this.showEndBitmap = showEndBitmap;
+    }
+
     /**
      * sets the icon that will be shown on the fab icon
      * @param resource the resource id of the icon
      */
-    public void setIcon(int resource){
+    public void setIcon(int resource,int endBitmapResource){
         Bitmap srcBitmap = BitmapFactory.decodeResource(getResources(),resource);
-        Bitmap endBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_fab_complete);
-        drawables[0] = new BitmapDrawable(getResources(),srcBitmap);
-        drawables[1] = new BitmapDrawable(getResources(),endBitmap);
-        crossfader = new TransitionDrawable(drawables);
-        crossfader.setCrossFadeEnabled(true);
-        setImageDrawable(crossfader);
+        if(showEndBitmap){
+            Bitmap endBitmap = BitmapFactory.decodeResource(getResources(),endBitmapResource);
+            drawables[0] = new BitmapDrawable(getResources(),srcBitmap);
+            drawables[1] = new BitmapDrawable(getResources(),endBitmap);
+            crossfader = new TransitionDrawable(drawables);
+            crossfader.setCrossFadeEnabled(true);
+            setImageDrawable(crossfader);
+        }else{
+            setImageBitmap(srcBitmap);
+        }
     }
 
 
@@ -213,8 +218,6 @@ public class CircleImageView extends ImageView {
     public void showCompleted(boolean show){
         if(show){
             crossfader.startTransition(500);
-        }else{
-            crossfader.reverseTransition(500);
         }
     }
 }

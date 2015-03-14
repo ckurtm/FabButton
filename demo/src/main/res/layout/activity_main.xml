@@ -44,7 +44,7 @@
         android:max="100"
         app:fbb_autoStart="true"
         app:fbb_progressColor="#0099cc"
-        app:fbb_progressWidthRatio="0.2"
+        app:fbb_progressWidthRatio="0.1"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/determinate"
         android:layout_marginBottom="48dp"
@@ -64,7 +64,9 @@
         android:max="100"
         app:fbb_autoStart="true"
         app:fbb_progressColor="#ff170aff"
-        app:fbb_progressWidthRatio="0.2"
+        app:fbb_progressWidthRatio="0.1"
+        app:fbb_endBitmap="@drawable/ic_fab_complete"
+        app:fbb_showEndBitmap="true"
         />
 
     <Button

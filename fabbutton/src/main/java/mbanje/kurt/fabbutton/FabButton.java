@@ -42,6 +42,8 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
     private float ringWidthRatio = 0.14f; //of a possible 1f;
     private boolean indeterminate;
     private boolean autostartanim;
+    private int endBitmapResource;
+    private boolean showEndBitmap;
 
     public FabButton(Context context) {
         super(context);
@@ -81,10 +83,14 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
             animDuration = a.getInteger(R.styleable.CircleImageView_android_indeterminateDuration, animDuration);
             icon = a.getResourceId(R.styleable.CircleImageView_android_src,icon);
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
+                        endBitmapResource = a.getResourceId(R.styleable.CircleImageView_fbb_endBitmap, R.drawable.ic_fab_complete);
+            showEndBitmap = a.getBoolean(R.styleable.CircleImageView_fbb_showEndBitmap,false);
+
             a.recycle();
         }
 
         circle.setColor(color);
+        circle.setShowEndBitmap(showEndBitmap);
         ring.setProgressColor(progressColor);
         ring.setProgress(progress);
         ring.setMaxProgress(maxProgress);
@@ -94,12 +100,12 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         ring.setRingWidthRatio(ringWidthRatio);
         ring.setIndeterminate(indeterminate);
         if(icon != -1){
-            circle.setIcon(icon);
+            circle.setIcon(icon,endBitmapResource);
         }
     }
 
-    public void setIcon(int resource){
-        circle.setIcon(resource);
+    public void setIcon(int resource,int endIconResource){
+        circle.setIcon(resource,endIconResource);
     }
 
     /**
@@ -149,6 +155,6 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
     @Override
     public void onProgressCompleted() {
-        circle.showCompleted(true);
+        circle.showCompleted(showEndBitmap);
     }
 }

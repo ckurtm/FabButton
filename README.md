@@ -18,7 +18,7 @@
  Gradle:
  ```groovy
  dependencies {
-         compile 'mbanje.kurt:fabbutton:1.0.5'
+         compile 'mbanje.kurt:fabbutton:1.0.6'
  }
  ```
 
@@ -26,23 +26,23 @@
 
 -	Use FabButton: (check the demo app included)
 ```xml
-<view
+    <view
         android:layout_width="@dimen/button_size"
         android:layout_height="@dimen/button_size"
         class="mbanje.kurt.fabbutton.FabButton"
-        android:id="@+id/indeterminate"
+        android:id="@+id/determinate"
         android:layout_gravity="center"
-        android:color="#aa66cc"
+        android:color="#ff6e9cff"
         android:src="@drawable/ic_fab_play"
         android:visibility="visible"
-        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:indeterminate="false"
         android:max="100"
         app:fbb_autoStart="true"
-        app:fbb_progressColor="#0099cc"
-        app:fbb_progressWidthRatio="0.2"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/determinate"
-        android:layout_marginBottom="48dp"
+        app:fbb_progressColor="#ff170aff"
+        app:fbb_progressWidthRatio="0.1"
+        app:fbb_endBitmap="@drawable/ic_fab_complete"
+        app:fbb_showEndBitmap="true"
         />
 ```
 
