@@ -4,14 +4,8 @@
 
 ##Demo:
 
-![FabButton](example.gif)
-![365 Body Workout](365.gif)
+![FabButton](demo.apk)
 
- [![alt text][2]][1]
- 
-   [1]: https://play.google.com/store/apps/details?id=com.peirr.workout.play
-   [2]: https://developer.android.com/images/brand/en_app_rgb_wo_45.png (365 Body workout)
-   
 ##HOW TO ADD TO YOUR PROJECT
  [ ![Download](https://api.bintray.com/packages/ckurtm/maven/FabButton/images/download.svg) ](https://bintray.com/ckurtm/maven/FabButton/_latestVersion)
 
@@ -45,7 +39,13 @@
         app:fbb_showEndBitmap="true"
         />
 ```
+##Apps using library
 
+ [![alt text][2]][1]
+ 
+   [1]: https://play.google.com/store/apps/details?id=com.peirr.workout.play
+   [2]: https://developer.android.com/images/brand/en_app_rgb_wo_45.png (365 Body workout)
+   
 ##License
 
 The MIT License (MIT)
