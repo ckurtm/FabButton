@@ -4,7 +4,9 @@
 
 ##Demo:
 
-[FabButton](demo.apk)
+[Demo apk](demo.apk)
+![FabButton](example.gif)
+![365 Body Workout](365.gif)
 
 ##HOW TO ADD TO YOUR PROJECT
  [ ![Download](https://api.bintray.com/packages/ckurtm/maven/FabButton/images/download.svg) ](https://bintray.com/ckurtm/maven/FabButton/_latestVersion)
