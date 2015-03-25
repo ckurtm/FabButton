@@ -94,7 +94,7 @@ public class CircleImageView extends ImageView {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        this.setFocusable(true);
+        this.setFocusable(false);
         this.setScaleType(ScaleType.CENTER_INSIDE);
         setClickable(true);
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);

@@ -47,8 +47,7 @@ public class MainActivity extends ActionBarActivity {
                 startIndeterminateProgress();
             }
         });
-        
-        
+//        determinate.setEnabled(false);
         determinate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

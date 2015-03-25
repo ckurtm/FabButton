@@ -83,7 +83,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
             animDuration = a.getInteger(R.styleable.CircleImageView_android_indeterminateDuration, animDuration);
             icon = a.getResourceId(R.styleable.CircleImageView_android_src,icon);
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
-                        endBitmapResource = a.getResourceId(R.styleable.CircleImageView_fbb_endBitmap, R.drawable.ic_fab_complete);
+            endBitmapResource = a.getResourceId(R.styleable.CircleImageView_fbb_endBitmap, R.drawable.ic_fab_complete);
             showEndBitmap = a.getBoolean(R.styleable.CircleImageView_fbb_showEndBitmap,false);
 
             a.recycle();
@@ -132,6 +132,12 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         }else{
             circle.showRing(false);
         }
+    }
+
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        circle.setEnabled(enabled);
+        ring.setEnabled(enabled);
     }
 
     /**
