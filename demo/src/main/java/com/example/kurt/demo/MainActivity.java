@@ -47,6 +47,15 @@ public class MainActivity extends ActionBarActivity {
                 startIndeterminateProgress();
             }
         });
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               determinate.resetIcon();
+            }
+        });
+
+
+
 //        determinate.setEnabled(false);
         determinate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +83,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void startDeterminateProgress() {
+        determinate.resetIcon();
         currentProgress = 0;
         determinate.showProgress(true);
         determinate.setProgress(currentProgress);

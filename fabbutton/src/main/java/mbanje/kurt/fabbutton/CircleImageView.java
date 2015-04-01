@@ -149,6 +149,11 @@ public class CircleImageView extends ImageView {
     }
 
 
+    public void resetIcon(){
+        crossfader.resetTransition();
+    }
+
+
     /**
      * this sets the thickness of the ring as a fraction of the radius of the circle.
      * @param ringWidthRatio the ratio 0-1

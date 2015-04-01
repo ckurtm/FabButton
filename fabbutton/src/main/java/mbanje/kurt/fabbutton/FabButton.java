@@ -108,6 +108,11 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.setIcon(resource,endIconResource);
     }
 
+
+
+    public void resetIcon(){
+        circle.resetIcon();
+    }
     /**
      * sets the progress to indeterminate or not
      * @param indeterminate the flag

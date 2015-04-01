@@ -40,7 +40,7 @@ import android.view.View;
 
 
 public class ProgressRingView extends View implements FabUtil.OnFabValueCallback{
-
+    String TAG = ProgressRingView.class.getSimpleName();
     private Paint progressPaint;
     private int size = 0;
     private RectF bounds;
@@ -274,7 +274,7 @@ public class ProgressRingView extends View implements FabUtil.OnFabValueCallback
         }
         if(progress != -1){
             this.actualProgress = progress;
-            if(actualProgress >= 100f && fabViewListener != null){
+            if(Math.round(actualProgress) == 100 && fabViewListener != null){
                 fabViewListener.onProgressCompleted();
             }
         }
