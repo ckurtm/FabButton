@@ -37,14 +37,11 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 
 public class CircleImageView extends ImageView {
-
-    private static final String TAG = CircleImageView.class.getSimpleName();
 
     public interface OnFabViewListener {
         public void onProgressVisibilityChanged(boolean visible);
@@ -223,7 +220,7 @@ public class CircleImageView extends ImageView {
     /**
      * this animates between the icon set in the imageview and the completed icon. does as crossfade animation
      * @param show set flag
-     * @param hideOnComplete
+     * @param hideOnComplete if true animate outside ring out after progress complete
      */
     public void showCompleted(boolean show, boolean hideOnComplete){
         if(show){
