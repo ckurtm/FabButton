@@ -67,6 +67,7 @@
         app:fbb_progressWidthRatio="0.1"
         app:fbb_endBitmap="@drawable/ic_fab_complete"
         app:fbb_showEndBitmap="true"
+        app:fbb_hideProgressOnComplete="true"
         />
 
     <Button

@@ -44,6 +44,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
     private boolean autostartanim;
     private int endBitmapResource;
     private boolean showEndBitmap;
+    private boolean hideProgressOnComplete;
 
     public FabButton(Context context) {
         super(context);
@@ -85,6 +86,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
             endBitmapResource = a.getResourceId(R.styleable.CircleImageView_fbb_endBitmap, R.drawable.ic_fab_complete);
             showEndBitmap = a.getBoolean(R.styleable.CircleImageView_fbb_showEndBitmap,false);
+            hideProgressOnComplete = a.getBoolean(R.styleable.CircleImageView_fbb_hideProgressOnComplete, false);
 
             a.recycle();
         }
@@ -132,11 +134,11 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
      * @param show shows animation ring when set to true
      */
     public void showProgress(boolean show){
-        if(show){
-            circle.showRing(true);
-        }else{
-            circle.showRing(false);
-        }
+        circle.showRing(show);
+    }
+
+    public void hideProgressOnComplete(boolean hide) {
+        hideProgressOnComplete = hide;
     }
 
     public void setEnabled(boolean enabled) {
@@ -166,6 +168,9 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
     @Override
     public void onProgressCompleted() {
-        circle.showCompleted(showEndBitmap);
+        circle.showCompleted(showEndBitmap, hideProgressOnComplete);
+        if (hideProgressOnComplete) {
+            ring.setVisibility(View.GONE);
+        }
     }
 }

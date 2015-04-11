@@ -37,5 +37,6 @@
         <attr name="fbb_progressWidthRatio" format="float" />
         <attr name="fbb_endBitmap" format="reference" />
         <attr name="fbb_showEndBitmap" format="boolean" />
+        <attr name="fbb_hideProgressOnComplete" format="boolean" />
     </declare-styleable>
 </resources>
