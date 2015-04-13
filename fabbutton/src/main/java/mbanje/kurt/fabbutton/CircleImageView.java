@@ -179,6 +179,7 @@ public class CircleImageView extends ImageView {
         ringWidth = Math.round((float) viewRadius * ringWidthRatio);
         circleRadius = viewRadius - ringWidth;
         ringPaint.setStrokeWidth(ringWidth);
+        ringPaint.setAlpha(ringAlpha);
         ringRadius = circleRadius - ringWidth/2;
     }
 
@@ -219,10 +220,18 @@ public class CircleImageView extends ImageView {
     /**
      * this animates between the icon set in the imageview and the completed icon. does as crossfade animation
      * @param show set flag
+     * @param hideOnComplete if true animate outside ring out after progress complete
      */
-    public void showCompleted(boolean show){
+    public void showCompleted(boolean show, boolean hideOnComplete){
         if(show){
             crossfader.startTransition(500);
+        }
+        if (hideOnComplete) {
+            ObjectAnimator hideAnimator = ObjectAnimator.ofFloat(this, "currentRingWidth", 0f, 0f);
+            hideAnimator.setFloatValues(1);
+            hideAnimator.setDuration(animationDuration);
+            hideAnimator.start();
+
         }
     }
 }
