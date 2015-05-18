@@ -34,7 +34,7 @@ def gitUrl = 'https://github.com/ckurtm/FabButton.git'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 14
