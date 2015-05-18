@@ -63,6 +63,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
     protected void init(Context context,AttributeSet attrs, int defStyle) {
         View v = View.inflate(context, R.layout.widget_fab_button,this);
+        setClipChildren(false);
         circle = (CircleImageView) v.findViewById(R.id.fabbutton_circle);
         ring = (ProgressRingView)v.findViewById(R.id.fabbutton_ring);
         circle.setFabViewListener(this);
