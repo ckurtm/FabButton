@@ -72,7 +72,7 @@ public class CircleImageView extends ImageView {
     float shadowRadius = 10f;
     int shadowTransparency = 100;
     private boolean showEndBitmap;
-    private boolean showShadowTransparency;
+    private boolean showShadow = true;
     public CircleImageView(Context context) {
         super(context);
         init(context, null);
@@ -94,8 +94,8 @@ public class CircleImageView extends ImageView {
         this.fabViewListener = fabViewListener;
     }
 
-    public void setShowShadowTransparency(boolean showShadowTransparency) {
-        this.showShadowTransparency = showShadowTransparency;
+    public void setShowShadow(boolean showShadow) {
+        this.showShadow = showShadow;
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -104,7 +104,7 @@ public class CircleImageView extends ImageView {
         setClickable(true);
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.FILL);
-        if(showShadowTransparency) {
+        if(showShadow) {
             circlePaint.setShadowLayer(shadowRadius, radiusX, radiusY, Color.argb(shadowTransparency, 0, 0, 0));
         }
 
