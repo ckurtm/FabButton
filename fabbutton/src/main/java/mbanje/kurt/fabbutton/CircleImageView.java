@@ -104,8 +104,9 @@ public class CircleImageView extends ImageView {
         setClickable(true);
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.FILL);
-        if(showShadowTransparency)
+        if(showShadowTransparency) {
             circlePaint.setShadowLayer(shadowRadius, radiusX, radiusY, Color.argb(shadowTransparency, 0, 0, 0));
+        }
 
         ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         ringPaint.setStyle(Paint.Style.STROKE);
