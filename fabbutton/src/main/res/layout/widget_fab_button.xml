@@ -34,7 +34,6 @@
         class="mbanje.kurt.fabbutton.CircleImageView"
         android:id="@+id/fabbutton_circle"
         android:layout_gravity="center"
-        android:color="#f80"
         android:scaleType="center"
         />
 

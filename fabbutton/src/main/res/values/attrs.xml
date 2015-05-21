@@ -38,5 +38,6 @@
         <attr name="fbb_endBitmap" format="reference" />
         <attr name="fbb_showEndBitmap" format="boolean" />
         <attr name="fbb_hideProgressOnComplete" format="boolean" />
+        <attr name="fbb_showShadow" format="boolean" />
     </declare-styleable>
 </resources>

@@ -83,23 +83,23 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
             indeterminate = a.getBoolean(R.styleable.CircleImageView_android_indeterminate, false);
             autostartanim = a.getBoolean(R.styleable.CircleImageView_fbb_autoStart, true);
             animDuration = a.getInteger(R.styleable.CircleImageView_android_indeterminateDuration, animDuration);
-            icon = a.getResourceId(R.styleable.CircleImageView_android_src,icon);
+            icon = a.getResourceId(R.styleable.CircleImageView_android_src, icon);
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
             endBitmapResource = a.getResourceId(R.styleable.CircleImageView_fbb_endBitmap, R.drawable.ic_fab_complete);
-            showEndBitmap = a.getBoolean(R.styleable.CircleImageView_fbb_showEndBitmap,false);
+            showEndBitmap = a.getBoolean(R.styleable.CircleImageView_fbb_showEndBitmap, false);
             hideProgressOnComplete = a.getBoolean(R.styleable.CircleImageView_fbb_hideProgressOnComplete, false);
-
+            circle.setShowShadow(a.getBoolean(R.styleable.CircleImageView_fbb_showShadow, true));
             a.recycle();
         }
 
         circle.setColor(color);
         circle.setShowEndBitmap(showEndBitmap);
+        circle.setRingWidthRatio(ringWidthRatio);
         ring.setProgressColor(progressColor);
         ring.setProgress(progress);
         ring.setMaxProgress(maxProgress);
         ring.setAutostartanim(autostartanim);
         ring.setAnimDuration(animDuration);
-        circle.setRingWidthRatio(ringWidthRatio);
         ring.setRingWidthRatio(ringWidthRatio);
         ring.setIndeterminate(indeterminate);
         if(icon != -1){
