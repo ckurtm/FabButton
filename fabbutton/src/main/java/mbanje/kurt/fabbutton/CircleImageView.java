@@ -35,6 +35,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -61,7 +62,7 @@ public class CircleImageView extends ImageView {
     private Paint ringPaint;
     private float currentRingWidth;
     private float ringWidthRatio = 0.14f; //of a possible 1f;
-    private BitmapDrawable drawables[] = new BitmapDrawable[2];
+    private Drawable drawables[] = new Drawable[2];
     private TransitionDrawable crossfader;
 
     private int ringWidth;
@@ -134,25 +135,40 @@ public class CircleImageView extends ImageView {
      * sets the icon that will be shown on the fab icon
      * @param resource the resource id of the icon
      */
-    public void setIcon(int resource,int endBitmapResource){
+    public void setIcon(int resource, int endBitmapResource){
         Bitmap srcBitmap = BitmapFactory.decodeResource(getResources(),resource);
         if(showEndBitmap){
             Bitmap endBitmap = BitmapFactory.decodeResource(getResources(),endBitmapResource);
-            drawables[0] = new BitmapDrawable(getResources(),srcBitmap);
-            drawables[1] = new BitmapDrawable(getResources(),endBitmap);
-            crossfader = new TransitionDrawable(drawables);
-            crossfader.setCrossFadeEnabled(true);
-            setImageDrawable(crossfader);
+            setIconAnimation(new BitmapDrawable(getResources(),srcBitmap), new BitmapDrawable(getResources(),endBitmap));
         }else{
             setImageBitmap(srcBitmap);
         }
     }
 
+	/**
+	 * sets the icon that will be shown on the fab icon
+	 * @param icon the initial icon
+	 * @param endIcon the icon to be displayed when the progress is finished
+	 */
+    public void setIcon(Drawable icon, Drawable endIcon){
+        if(showEndBitmap){
+            setIconAnimation(icon, endIcon);
+        }else{
+            setImageDrawable(icon);
+        }
+    }
+
+	private void setIconAnimation(Drawable icon, Drawable endIcon){
+		drawables[0] = icon;
+		drawables[1] = endIcon;
+		crossfader = new TransitionDrawable(drawables);
+		crossfader.setCrossFadeEnabled(true);
+		setImageDrawable(crossfader);
+	}
 
     public void resetIcon(){
         crossfader.resetTransition();
     }
-
 
     /**
      * this sets the thickness of the ring as a fraction of the radius of the circle.

@@ -27,6 +27,7 @@ package mbanje.kurt.fabbutton;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -112,6 +113,9 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
     }
 
 
+	public void setIcon(Drawable icon, Drawable endIcon) {
+		circle.setIcon(icon, endIcon);
+	}
 
     public void resetIcon(){
         circle.resetIcon();
