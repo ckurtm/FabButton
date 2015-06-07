@@ -38,6 +38,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -108,7 +109,14 @@ public class CircleImageView extends ImageView {
         setClickable(true);
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.FILL);
-
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        if(displayMetrics.densityDpi <= 240) {
+            shadowRadius = 1.0f;
+        } else if(displayMetrics.densityDpi <= 320) {
+            shadowRadius = 3.0f;
+        } else {
+            shadowRadius = 10.0f;
+        }
         ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         ringPaint.setStyle(Paint.Style.STROKE);
         setWillNotDraw(false);
