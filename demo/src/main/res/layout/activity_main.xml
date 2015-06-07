@@ -37,7 +37,7 @@
         class="mbanje.kurt.fabbutton.FabButton"
         android:id="@+id/indeterminate"
         android:layout_gravity="center"
-        android:color="@android:color/transparent"
+        android:color="#aa66cc"
         app:fbb_showShadow="false"
         android:src="@drawable/ic_fab_play"
         android:visibility="visible"
