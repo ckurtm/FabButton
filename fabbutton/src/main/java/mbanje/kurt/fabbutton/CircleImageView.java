@@ -95,7 +95,10 @@ public class CircleImageView extends ImageView {
     }
 
     public void setShowShadow(boolean showShadow) {
-        this.showShadow = showShadow;
+        if(showShadow) {
+            circlePaint.setShadowLayer(shadowRadius, radiusX, radiusY, Color.argb(shadowTransparency, 0, 0, 0));
+        } else
+            circlePaint.clearShadowLayer();
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -104,9 +107,6 @@ public class CircleImageView extends ImageView {
         setClickable(true);
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.FILL);
-        if(showShadow) {
-            circlePaint.setShadowLayer(shadowRadius, radiusX, radiusY, Color.argb(shadowTransparency, 0, 0, 0));
-        }
 
         ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         ringPaint.setStyle(Paint.Style.STROKE);
@@ -117,6 +117,8 @@ public class CircleImageView extends ImageView {
             final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
             color = a.getColor(R.styleable.CircleImageView_android_color, Color.BLACK);
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
+
+            setShowShadow(a.getBoolean(R.styleable.CircleImageView_fbb_showShadow, true));
             a.recycle();
         }
         setColor(color);
