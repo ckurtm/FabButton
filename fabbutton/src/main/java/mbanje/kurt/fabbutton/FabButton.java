@@ -27,10 +27,20 @@ package mbanje.kurt.fabbutton;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
+
+import java.util.List;
 
 
 /**
@@ -179,6 +189,173 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.showCompleted(showEndBitmap, hideProgressOnComplete);
         if (hideProgressOnComplete) {
             ring.setVisibility(View.GONE);
+        }
+    }
+
+
+
+
+   static class Behavior extends CoordinatorLayout.Behavior<FabButton> {
+       // We only support the FAB <> Snackbar shift movement on Honeycomb and above. This is
+       // because we can use view translation properties which greatly simplifies the code.
+       private static final boolean SNACKBAR_BEHAVIOR_ENABLED = Build.VERSION.SDK_INT >= 11;
+
+       private Rect mTmpRect;
+       private boolean mIsAnimatingOut;
+       private float mTranslationY;
+
+       @Override
+       public boolean layoutDependsOn(CoordinatorLayout parent, FabButton child,
+                                      View dependency) {
+           // We're dependent on all SnackbarLayouts (if enabled)
+           return SNACKBAR_BEHAVIOR_ENABLED && dependency instanceof Snackbar.SnackbarLayout;
+       }
+
+       @Override
+       public boolean onDependentViewChanged(CoordinatorLayout parent, FabButton child, View dependency) {
+           if (dependency instanceof Snackbar.SnackbarLayout) {
+               updateFabTranslationForSnackbar(parent, child, dependency);
+           } else if (dependency instanceof AppBarLayout) {
+               final AppBarLayout appBarLayout = (AppBarLayout) dependency;
+               if (mTmpRect == null) {
+                   mTmpRect = new Rect();
+               }
+
+               // First, let's get the visible rect of the dependency
+               final Rect rect = mTmpRect;
+               ViewGroupUtils.getDescendantRect(parent, dependency, rect);
+
+               if (rect.bottom <= getMinimumHeightForVisibleOverlappingContent(appBarLayout)) {
+                   // If the anchor's bottom is below the seam, we'll animate our FAB out
+                   if (!mIsAnimatingOut && child.getVisibility() == View.VISIBLE) {
+                       animateOut(child);
+                   }
+               } else {
+                   // Else, we'll animate our FAB back in
+                   if (child.getVisibility() != View.VISIBLE) {
+                       animateIn(child);
+                   }
+               }
+           }
+
+
+       return false;
+   }
+
+        final int getMinimumHeightForVisibleOverlappingContent(AppBarLayout bar) {
+            int topInset = 0;
+            int minHeight = ViewCompat.getMinimumHeight(bar);
+            if(minHeight != 0) {
+                return minHeight * 2 + topInset;
+            } else {
+                int childCount = bar.getChildCount();
+                return childCount >= 1?ViewCompat.getMinimumHeight(bar.getChildAt(childCount - 1)) * 2 + topInset:0;
+            }
+        }
+
+
+        private void updateFabTranslationForSnackbar(CoordinatorLayout parent,
+                                                     FabButton fab, View snackbar) {
+            final float translationY = getFabTranslationYForSnackbar(parent, fab);
+            if (translationY != mTranslationY) {
+                // First, cancel any current animation
+                ViewCompat.animate(fab).cancel();
+
+                if (Math.abs(translationY - mTranslationY) == snackbar.getHeight()) {
+                    // If we're travelling by the height of the Snackbar then we probably need to
+                    // animate to the value
+                    ViewCompat.animate(fab)
+                            .translationY(translationY)
+                            .setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
+                            .setListener(null);
+                } else {
+                    // Else we'll set use setTranslationY
+                    ViewCompat.setTranslationY(fab, translationY);
+                }
+                mTranslationY = translationY;
+            }
+        }
+
+        private float getFabTranslationYForSnackbar(CoordinatorLayout parent,
+                                                    FabButton fab) {
+            float minOffset = 0;
+            final List<View> dependencies = parent.getDependencies(fab);
+            for (int i = 0, z = dependencies.size(); i < z; i++) {
+                final View view = dependencies.get(i);
+                if (view instanceof Snackbar.SnackbarLayout && parent.doViewsOverlap(fab, view)) {
+                    minOffset = Math.min(minOffset,
+                            ViewCompat.getTranslationY(view) - view.getHeight());
+                }
+            }
+
+            return minOffset;
+        }
+
+        private void animateIn(FabButton button) {
+            button.setVisibility(View.VISIBLE);
+
+            if (Build.VERSION.SDK_INT >= 14) {
+                ViewCompat.animate(button)
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .alpha(1f)
+                        .setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
+                        .withLayer()
+                        .setListener(null)
+                        .start();
+            } else {
+                Animation anim = android.view.animation.AnimationUtils.loadAnimation(
+                        button.getContext(), R.anim.fab_in);
+                anim.setDuration(200);
+                anim.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+                button.startAnimation(anim);
+            }
+        }
+
+        private void animateOut(final FabButton button) {
+            if (Build.VERSION.SDK_INT >= 14) {
+                ViewCompat.animate(button)
+                        .scaleX(0f)
+                        .scaleY(0f)
+                        .alpha(0f)
+                        .setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
+                        .withLayer()
+                        .setListener(new ViewPropertyAnimatorListener() {
+                            @Override
+                            public void onAnimationStart(View view) {
+                                mIsAnimatingOut = true;
+                            }
+
+                            @Override
+                            public void onAnimationCancel(View view) {
+                                mIsAnimatingOut = false;
+                            }
+
+                            @Override
+                            public void onAnimationEnd(View view) {
+                                mIsAnimatingOut = false;
+                                view.setVisibility(View.GONE);
+                            }
+                        }).start();
+            } else {
+                Animation anim = android.view.animation.AnimationUtils.loadAnimation(
+                        button.getContext(), R.anim.fab_out);
+                anim.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
+                anim.setDuration(200);
+                anim.setAnimationListener(new AnimationUtils.AnimationListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        mIsAnimatingOut = true;
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mIsAnimatingOut = false;
+                        button.setVisibility(View.GONE);
+                    }
+                });
+                button.startAnimation(anim);
+            }
         }
     }
 }

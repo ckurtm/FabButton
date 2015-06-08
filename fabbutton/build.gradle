@@ -50,6 +50,10 @@ android {
     }
 }
 
+dependencies {
+    compile 'com.android.support:design:22.2.0'
+}
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
