@@ -25,6 +25,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:design:22.2.0'
     compile project(':fabbutton')
+    compile 'com.android.support:cardview-v7:22.2.0'
 }

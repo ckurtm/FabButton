@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/padding_card"
+    android:layout_marginLeft="@dimen/padding_card"
+    android:layout_marginRight="@dimen/padding_card">
+
+    <LinearLayout
+        style="@style/Widget.CardContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

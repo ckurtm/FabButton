@@ -32,6 +32,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.CoordinatorLayout.DefaultBehavior;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -46,6 +47,7 @@ import java.util.List;
 /**
  * Created by kurt on 21 02 2015 .
  */
+@DefaultBehavior(FabButton.Behavior.class)
 public class FabButton extends FrameLayout implements CircleImageView.OnFabViewListener {
 
     private CircleImageView circle;
@@ -122,15 +124,15 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.setIcon(resource,endIconResource);
     }
 
-	public void setColor(int color) {
-		circle.setColor(color);
-	}
+    public void setColor(int color) {
+        circle.setColor(color);
+    }
 
-	public void setIcon(Drawable icon, Drawable endIcon) {
-		circle.setIcon(icon, endIcon);
-	}
+    public void setIcon(Drawable icon, Drawable endIcon) {
+        circle.setIcon(icon, endIcon);
+    }
 
-	public void resetIcon(){
+    public void resetIcon(){
         circle.resetIcon();
     }
     /**
@@ -195,52 +197,52 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
 
 
-   static class Behavior extends CoordinatorLayout.Behavior<FabButton> {
-       // We only support the FAB <> Snackbar shift movement on Honeycomb and above. This is
-       // because we can use view translation properties which greatly simplifies the code.
-       private static final boolean SNACKBAR_BEHAVIOR_ENABLED = Build.VERSION.SDK_INT >= 11;
+    public static class Behavior extends CoordinatorLayout.Behavior<FabButton> {
+        // We only support the FAB <> Snackbar shift movement on Honeycomb and above. This is
+        // because we can use view translation properties which greatly simplifies the code.
+        private static final boolean SNACKBAR_BEHAVIOR_ENABLED = Build.VERSION.SDK_INT >= 11;
 
-       private Rect mTmpRect;
-       private boolean mIsAnimatingOut;
-       private float mTranslationY;
+        private Rect mTmpRect;
+        private boolean mIsAnimatingOut;
+        private float mTranslationY;
 
-       @Override
-       public boolean layoutDependsOn(CoordinatorLayout parent, FabButton child,
-                                      View dependency) {
-           // We're dependent on all SnackbarLayouts (if enabled)
-           return SNACKBAR_BEHAVIOR_ENABLED && dependency instanceof Snackbar.SnackbarLayout;
-       }
+        @Override
+        public boolean layoutDependsOn(CoordinatorLayout parent, FabButton child,
+                                       View dependency) {
+            // We're dependent on all SnackbarLayouts (if enabled)
+            return SNACKBAR_BEHAVIOR_ENABLED && dependency instanceof Snackbar.SnackbarLayout;
+        }
 
-       @Override
-       public boolean onDependentViewChanged(CoordinatorLayout parent, FabButton child, View dependency) {
-           if (dependency instanceof Snackbar.SnackbarLayout) {
-               updateFabTranslationForSnackbar(parent, child, dependency);
-           } else if (dependency instanceof AppBarLayout) {
-               final AppBarLayout appBarLayout = (AppBarLayout) dependency;
-               if (mTmpRect == null) {
-                   mTmpRect = new Rect();
-               }
+        @Override
+        public boolean onDependentViewChanged(CoordinatorLayout parent, FabButton child, View dependency) {
+            if (dependency instanceof Snackbar.SnackbarLayout) {
+                updateFabTranslationForSnackbar(parent, child, dependency);
+            } else if (dependency instanceof AppBarLayout) {
+                final AppBarLayout appBarLayout = (AppBarLayout) dependency;
+                if (mTmpRect == null) {
+                    mTmpRect = new Rect();
+                }
 
-               // First, let's get the visible rect of the dependency
-               final Rect rect = mTmpRect;
-               ViewGroupUtils.getDescendantRect(parent, dependency, rect);
+                // First, let's get the visible rect of the dependency
+                final Rect rect = mTmpRect;
+                ViewGroupUtils.getDescendantRect(parent, dependency, rect);
 
-               if (rect.bottom <= getMinimumHeightForVisibleOverlappingContent(appBarLayout)) {
-                   // If the anchor's bottom is below the seam, we'll animate our FAB out
-                   if (!mIsAnimatingOut && child.getVisibility() == View.VISIBLE) {
-                       animateOut(child);
-                   }
-               } else {
-                   // Else, we'll animate our FAB back in
-                   if (child.getVisibility() != View.VISIBLE) {
-                       animateIn(child);
-                   }
-               }
-           }
+                if (rect.bottom <= getMinimumHeightForVisibleOverlappingContent(appBarLayout)) {
+                    // If the anchor's bottom is below the seam, we'll animate our FAB out
+                    if (!mIsAnimatingOut && child.getVisibility() == View.VISIBLE) {
+                        animateOut(child);
+                    }
+                } else {
+                    // Else, we'll animate our FAB back in
+                    if (child.getVisibility() != View.VISIBLE) {
+                        animateIn(child);
+                    }
+                }
+            }
 
 
-       return false;
-   }
+            return false;
+        }
 
         final int getMinimumHeightForVisibleOverlappingContent(AppBarLayout bar) {
             int topInset = 0;

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FabButton</string>
-    <string name="start">Start</string>
-    <string name="reset">Reset</string>
+    <string name="determinate">Determinate</string>
+    <string name="indeterminate">Indeterminate</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </string>
 
 </resources>
