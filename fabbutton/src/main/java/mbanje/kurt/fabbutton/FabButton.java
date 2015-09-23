@@ -307,7 +307,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
                         .start();
             } else {
                 Animation anim = android.view.animation.AnimationUtils.loadAnimation(
-                        button.getContext(), R.anim.fab_in);
+                        button.getContext(), R.anim.design_fab_in);
                 anim.setDuration(200);
                 anim.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
                 button.startAnimation(anim);
@@ -341,7 +341,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
                         }).start();
             } else {
                 Animation anim = android.view.animation.AnimationUtils.loadAnimation(
-                        button.getContext(), R.anim.fab_out);
+                        button.getContext(), R.anim.design_fab_out);
                 anim.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
                 anim.setDuration(200);
                 anim.setAnimationListener(new AnimationUtils.AnimationListenerAdapter() {
