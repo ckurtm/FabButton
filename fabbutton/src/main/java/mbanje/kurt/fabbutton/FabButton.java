@@ -120,6 +120,10 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         }
     }
 
+    public void setShadow(boolean showShadow) {
+        circle.setShowShadow(showShadow);
+    }
+
     public void setIcon(int resource,int endIconResource){
         circle.setIcon(resource,endIconResource);
     }
