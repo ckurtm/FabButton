@@ -144,9 +144,11 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         ring.setIndeterminate(indeterminate);
     }
 
-    public void setOnClickListener(OnClickListener listener){
-        ring.setOnClickListener(listener);
-        circle.setOnClickListener(listener);
+    @Override
+    public void setOnClickListener(OnClickListener l) {
+        super.setOnClickListener(l);
+        ring.setOnClickListener(l);
+        circle.setOnClickListener(l);
     }
 
     /**
