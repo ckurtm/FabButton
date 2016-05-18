@@ -22,9 +22,12 @@
  * THE SOFTWARE.
  */
 
+plugins {
+    id 'com.jfrog.bintray' version '1.6'
+}
+
+apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 
 version = "1.2.2"
 group = "mbanje.kurt"
@@ -51,53 +54,34 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:design:23.4.0'
 }
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.key")
 
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = "FabButton"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
-}
+publishing {
+    publications {
+        FabLib(MavenPublication) {
+            artifact "$buildDir/outputs/aar/fabbutton-release.aar"
+            artifact generateJavadocsJar
+            artifact generateSourcesJar
 
+            groupId "mbanje.kurt"
+//            artifactId "Android"
+            version "1.2.2"
 
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name 'Android Floating ActionButton with a progress indicator ring'
-                url siteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'fabbutton'
-                        name 'Kurt Mbanje'
-                        email 'ckurtm@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
+            //The publication doesn't know about our dependencies, so we have to manually add them to the pom
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
 
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
                 }
             }
         }
@@ -105,30 +89,33 @@ install {
 }
 
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.key")
+    publications = ['FabLib']
+    pkg {
+        repo = "maven"
+        name = "FabButton"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+    }
 }
 
-task javadoc(type: Javadoc) {
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
 }
 
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
 
-task findConventions << {
-    println project.getConvention()
-}
-
-task wrapper(type: Wrapper) {
-}
 

@@ -15,7 +15,7 @@
  Gradle:
  ```groovy
  dependencies {
-         compile 'mbanje.kurt:fabbutton:1.2.2'
+         compile 'mbanje.kurt:fabbutton:1.2.2@aar'
  }
  ```
 
