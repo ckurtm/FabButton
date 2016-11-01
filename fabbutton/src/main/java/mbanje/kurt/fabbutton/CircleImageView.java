@@ -69,8 +69,8 @@ public class CircleImageView extends ImageView {
     private int ringWidth;
     private ObjectAnimator ringAnimator;
 
-    float radiusY = 3.5f;
-    float radiusX = 0f;
+    float shadowDy = 3.5f;
+    float shadowDx = 0f;
     float shadowRadius = 10f;
     int shadowTransparency = 100;
     private boolean showEndBitmap;
@@ -98,9 +98,11 @@ public class CircleImageView extends ImageView {
 
     public void setShowShadow(boolean showShadow) {
         if(showShadow) {
-            circlePaint.setShadowLayer(shadowRadius, radiusX, radiusY, Color.argb(shadowTransparency, 0, 0, 0));
-        } else
+            circlePaint.setShadowLayer(shadowRadius, shadowDx, shadowDy, Color.argb(shadowTransparency, 0, 0, 0));
+        } else {
             circlePaint.clearShadowLayer();
+        }
+        invalidate();
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -126,7 +128,9 @@ public class CircleImageView extends ImageView {
             final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
             color = a.getColor(R.styleable.CircleImageView_android_color, Color.BLACK);
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
-
+            shadowRadius = a.getFloat(R.styleable.CircleImageView_android_shadowRadius,shadowRadius);
+            shadowDy = a.getFloat(R.styleable.CircleImageView_android_shadowDy, shadowDy);
+            shadowDx = a.getFloat(R.styleable.CircleImageView_android_shadowDx, shadowDx);
             setShowShadow(a.getBoolean(R.styleable.CircleImageView_fbb_showShadow, true));
             a.recycle();
         }
@@ -162,11 +166,11 @@ public class CircleImageView extends ImageView {
         }
     }
 
-	/**
-	 * sets the icon that will be shown on the fab icon
-	 * @param icon the initial icon
-	 * @param endIcon the icon to be displayed when the progress is finished
-	 */
+    /**
+     * sets the icon that will be shown on the fab icon
+     * @param icon the initial icon
+     * @param endIcon the icon to be displayed when the progress is finished
+     */
     public void setIcon(Drawable icon, Drawable endIcon){
         if(showEndBitmap){
             setIconAnimation(icon, endIcon);
@@ -175,13 +179,13 @@ public class CircleImageView extends ImageView {
         }
     }
 
-	private void setIconAnimation(Drawable icon, Drawable endIcon){
-		drawables[0] = icon;
-		drawables[1] = endIcon;
-		crossfader = new TransitionDrawable(drawables);
-		crossfader.setCrossFadeEnabled(true);
-		setImageDrawable(crossfader);
-	}
+    private void setIconAnimation(Drawable icon, Drawable endIcon){
+        drawables[0] = icon;
+        drawables[1] = endIcon;
+        crossfader = new TransitionDrawable(drawables);
+        crossfader.setCrossFadeEnabled(true);
+        setImageDrawable(crossfader);
+    }
 
     public void resetIcon(){
         crossfader.resetTransition();

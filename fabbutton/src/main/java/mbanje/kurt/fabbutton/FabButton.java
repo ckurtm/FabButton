@@ -128,6 +128,11 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.setIcon(resource,endIconResource);
     }
 
+    public void showShadow(boolean show){
+        circle.setShowShadow(show);
+        invalidate();
+    }
+
     public void setColor(int color) {
         circle.setColor(color);
     }

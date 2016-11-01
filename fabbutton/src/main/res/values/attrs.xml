@@ -30,6 +30,10 @@
         <attr name="android:indeterminate"/>
         <attr name="android:progress"/>
         <attr name="android:max"/>
+        <attr name="android:shadowDx"/>
+        <attr name="android:shadowDy"/>
+        <attr name="android:shadowRadius"/>
+        <attr name="android:shadowColor"/>
         <attr name="android:indeterminateDuration"/>
         <attr name="fbb_progressColor" format="reference|color"/>
         <attr name="fbb_autoStart" format="boolean" />

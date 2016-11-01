@@ -29,19 +29,19 @@ plugins {
 apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
 
-version = "1.2.2"
+version = "1.2.3"
 group = "mbanje.kurt"
 
 def siteUrl = 'https://github.com/ckurtm/FabButton'
 def gitUrl = 'https://github.com/ckurtm/FabButton.git'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 11
         versionName version
     }
@@ -54,7 +54,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:design:25.0.0'
 }
 
 Properties properties = new Properties()
@@ -70,7 +70,7 @@ publishing {
 
             groupId "mbanje.kurt"
 //            artifactId "Android"
-            version "1.2.2"
+            version "1.2.3"
 
             //The publication doesn't know about our dependencies, so we have to manually add them to the pom
             pom.withXml {

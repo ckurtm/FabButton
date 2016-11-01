@@ -44,6 +44,7 @@ public class ProgressHelper {
 
     public void startDeterminate() {
         button.resetIcon();
+        button.showShadow(false);
         currentProgress = 0;
         button.showProgress(true);
         button.setProgress(currentProgress);
