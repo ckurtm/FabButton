@@ -37,7 +37,7 @@ def gitUrl = 'https://github.com/ckurtm/FabButton.git'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 14
@@ -54,7 +54,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:design:25.1.0'
 }
 
 Properties properties = new Properties()
