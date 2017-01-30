@@ -21,23 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-plugins {
-    id 'com.jfrog.bintray' version '1.6'
-}
-
-apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
-version = "1.2.3"
-group = "mbanje.kurt"
-
+def groupName = "mbanje.kurt"
 def siteUrl = 'https://github.com/ckurtm/FabButton'
 def gitUrl = 'https://github.com/ckurtm/FabButton.git'
 
+version = "1.2.4"
+group = 'mbanje.kurt'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    buildToolsVersion '25.0.2'
+
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         minSdkVersion 14
@@ -53,68 +57,75 @@ android {
     }
 }
 
-dependencies {
-    compile 'com.android.support:design:25.0.0'
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-
-publishing {
-    publications {
-        FabLib(MavenPublication) {
-            artifact "$buildDir/outputs/aar/fabbutton-release.aar"
-            artifact generateJavadocsJar
-            artifact generateSourcesJar
-
-            groupId "mbanje.kurt"
-//            artifactId "Android"
-            version "1.2.3"
-
-            //The publication doesn't know about our dependencies, so we have to manually add them to the pom
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-
-                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
-                configurations.compile.allDependencies.each {
-                    def dependencyNode = dependenciesNode.appendNode('dependency')
-                    dependencyNode.appendNode('groupId', it.group)
-                    dependencyNode.appendNode('artifactId', it.name)
-                    dependencyNode.appendNode('version', it.version)
-                }
-            }
-        }
-    }
-}
-
-
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.key")
-    publications = ['FabLib']
+    configurations = ['archives']
     pkg {
         repo = "maven"
         name = "FabButton"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
+        publicDownloadNumbers = true
+
     }
 }
 
-task generateSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier 'sources'
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            description 'Android Floating ActionButton with a progress indicator ring'
+            name "FabButton"
+            url siteUrl
+            inceptionYear '2015'
+            packaging 'aar'
+            licenses {
+                license {
+                    name 'The MIT License (MIT)'
+                    url 'https://opensource.org/licenses/MIT'
+                }
+            }
+            scm {
+                connection gitUrl
+                url siteUrl
+
+            }
+            developers {
+                developer {
+                    name 'Kurt Mbanje'
+                }
+            }
+        }
+    }
 }
 
-task generateJavadocs(type: Javadoc) {
+dependencies {
+    compile 'com.android.support:design:25.1.0'
+}
+
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
 
-task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
-    from generateJavadocs.destinationDir
-    classifier 'javadoc'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
 }
 
 
