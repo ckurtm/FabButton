@@ -1,15 +1,15 @@
-##FabProgress
+## FabProgress
  Android Circular floating action button with intergrated progress indicator ring
 [As per material design docs](http://www.google.com/design/spec/components/progress-activity.html#progress-activity-types-of-indicators)
 
-##Demo:
+## Demo:
 
 [Demo apk](demo.apk)
 
 ![FabButton](example.gif)
 ![365 Body Workout](365.gif)
 
-##HOW TO ADD TO YOUR PROJECT
+## HOW TO ADD TO YOUR PROJECT
  [ ![Download](https://api.bintray.com/packages/ckurtm/maven/FabButton/images/download.svg) ](https://bintray.com/ckurtm/maven/FabButton/_latestVersion)
 
  Gradle:
@@ -19,7 +19,7 @@
  }
  ```
 
-##Usage
+## Usage
 
 -	Use FabButton: (check the demo app included)
 ```xml
@@ -42,14 +42,14 @@
         app:fbb_showEndBitmap="true"
         />
 ```
-##Apps using library
+## Apps using library
 
  [![alt text][2]][1]
  
    [1]: https://play.google.com/store/apps/details?id=com.peirr.workout.play
    [2]: https://developer.android.com/images/brand/en_app_rgb_wo_45.png (365 Body workout)
    
-##License
+## License
 
 The MIT License (MIT)
 
