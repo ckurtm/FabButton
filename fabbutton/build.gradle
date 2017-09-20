@@ -29,7 +29,7 @@ def groupName = "mbanje.kurt"
 def siteUrl = 'https://github.com/ckurtm/FabButton'
 def gitUrl = 'https://github.com/ckurtm/FabButton.git'
 
-version = "1.2.4"
+version = "1.2.5"
 group = 'mbanje.kurt'
 
 Properties properties = new Properties()
