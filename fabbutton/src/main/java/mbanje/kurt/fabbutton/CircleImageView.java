@@ -46,9 +46,8 @@ import android.view.View;
 public class CircleImageView extends AppCompatImageView {
 
     public interface OnFabViewListener {
-        public void onProgressVisibilityChanged(boolean visible);
-
-        public void onProgressCompleted();
+         void onProgressVisibilityChanged(boolean visible);
+         void onProgressCompleted();
     }
 
     private static final int animationDuration = 200;

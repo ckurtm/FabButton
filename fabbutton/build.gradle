@@ -36,8 +36,8 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion compileVersion
+    buildToolsVersion toolsVersion
 
     lintOptions {
         abortOnError false
@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion targetVersion
         versionCode 11
         versionName version
     }
@@ -101,9 +101,8 @@ install {
 }
 
 dependencies {
-    compile 'com.android.support:design:25.1.0'
+    implementation "com.android.support:design:$googleLibraryVersion"
 }
-
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
