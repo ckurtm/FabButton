@@ -37,16 +37,17 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageView;
 
 
-public class CircleImageView extends ImageView {
+public class CircleImageView extends AppCompatImageView {
 
     public interface OnFabViewListener {
         public void onProgressVisibilityChanged(boolean visible);
+
         public void onProgressCompleted();
     }
 
@@ -75,11 +76,11 @@ public class CircleImageView extends ImageView {
     int shadowTransparency = 100;
     private boolean showEndBitmap;
     private boolean showShadow = true;
+
     public CircleImageView(Context context) {
         super(context);
         init(context, null);
     }
-
 
 
     public CircleImageView(Context context, AttributeSet attrs) {
@@ -97,7 +98,7 @@ public class CircleImageView extends ImageView {
     }
 
     public void setShowShadow(boolean showShadow) {
-        if(showShadow) {
+        if (showShadow) {
             circlePaint.setShadowLayer(shadowRadius, shadowDx, shadowDy, Color.argb(shadowTransparency, 0, 0, 0));
         } else {
             circlePaint.clearShadowLayer();
@@ -112,9 +113,9 @@ public class CircleImageView extends ImageView {
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.FILL);
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        if(displayMetrics.densityDpi <= 240) {
+        if (displayMetrics.densityDpi <= 240) {
             shadowRadius = 1.0f;
-        } else if(displayMetrics.densityDpi <= 320) {
+        } else if (displayMetrics.densityDpi <= 320) {
             shadowRadius = 3.0f;
         } else {
             shadowRadius = 10.0f;
@@ -128,7 +129,7 @@ public class CircleImageView extends ImageView {
             final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
             color = a.getColor(R.styleable.CircleImageView_android_color, Color.BLACK);
             ringWidthRatio = a.getFloat(R.styleable.CircleImageView_fbb_progressWidthRatio, ringWidthRatio);
-            shadowRadius = a.getFloat(R.styleable.CircleImageView_android_shadowRadius,shadowRadius);
+            shadowRadius = a.getFloat(R.styleable.CircleImageView_android_shadowRadius, shadowRadius);
             shadowDy = a.getFloat(R.styleable.CircleImageView_android_shadowDy, shadowDy);
             shadowDx = a.getFloat(R.styleable.CircleImageView_android_shadowDx, shadowDx);
             setShowShadow(a.getBoolean(R.styleable.CircleImageView_fbb_showShadow, true));
@@ -154,32 +155,35 @@ public class CircleImageView extends ImageView {
 
     /**
      * sets the icon that will be shown on the fab icon
+     *
      * @param resource the resource id of the icon
      */
-    public void setIcon(int resource, int endBitmapResource){
-        Bitmap srcBitmap = BitmapFactory.decodeResource(getResources(),resource);
-        if(showEndBitmap){
-            Bitmap endBitmap = BitmapFactory.decodeResource(getResources(),endBitmapResource);
-            setIconAnimation(new BitmapDrawable(getResources(),srcBitmap), new BitmapDrawable(getResources(),endBitmap));
-        }else{
+    public void setIcon(int resource, int endBitmapResource) {
+        Bitmap srcBitmap = BitmapFactory.decodeResource(getResources(), resource);
+        if (showEndBitmap) {
+            Bitmap endBitmap = BitmapFactory.decodeResource(getResources(), endBitmapResource);
+            setIconAnimation(new BitmapDrawable(getResources(), srcBitmap),
+                    new BitmapDrawable(getResources(), endBitmap));
+        } else {
             setImageBitmap(srcBitmap);
         }
     }
 
     /**
      * sets the icon that will be shown on the fab icon
+     *
      * @param icon the initial icon
      * @param endIcon the icon to be displayed when the progress is finished
      */
-    public void setIcon(Drawable icon, Drawable endIcon){
-        if(showEndBitmap){
+    public void setIcon(Drawable icon, Drawable endIcon) {
+        if (showEndBitmap) {
             setIconAnimation(icon, endIcon);
-        }else{
+        } else {
             setImageDrawable(icon);
         }
     }
 
-    private void setIconAnimation(Drawable icon, Drawable endIcon){
+    private void setIconAnimation(Drawable icon, Drawable endIcon) {
         drawables[0] = icon;
         drawables[1] = endIcon;
         crossfader = new TransitionDrawable(drawables);
@@ -187,12 +191,13 @@ public class CircleImageView extends ImageView {
         setImageDrawable(crossfader);
     }
 
-    public void resetIcon(){
+    public void resetIcon() {
         crossfader.resetTransition();
     }
 
     /**
      * this sets the thickness of the ring as a fraction of the radius of the circle.
+     *
      * @param ringWidthRatio the ratio 0-1
      */
     public void setRingWidthRatio(float ringWidthRatio) {
@@ -212,12 +217,12 @@ public class CircleImageView extends ImageView {
         super.onSizeChanged(w, h, oldw, oldh);
         centerX = w / 2;
         centerY = h / 2;
-        viewRadius = Math.min(w,h) / 2;
+        viewRadius = Math.min(w, h) / 2;
         ringWidth = Math.round((float) viewRadius * ringWidthRatio);
         circleRadius = viewRadius - ringWidth;
         ringPaint.setStrokeWidth(ringWidth);
         ringPaint.setAlpha(ringAlpha);
-        ringRadius = circleRadius - ringWidth/2;
+        ringRadius = circleRadius - ringWidth / 2;
     }
 
     public float getCurrentRingWidth() {
@@ -231,6 +236,7 @@ public class CircleImageView extends ImageView {
 
     /**
      * sets the color of the circle
+     *
      * @param color the actual color to set to
      */
     public void setColor(int color) {
@@ -242,13 +248,14 @@ public class CircleImageView extends ImageView {
 
     /**
      * whether to show the ring or not
+     *
      * @param show set flag
      */
-    public void showRing(boolean show){
+    public void showRing(boolean show) {
         progressVisible = show;
-        if(show){
+        if (show) {
             ringAnimator.setFloatValues(currentRingWidth, ringWidth);
-        }else{
+        } else {
             ringAnimator.setFloatValues(ringWidth, 0f);
         }
         ringAnimator.start();
@@ -256,11 +263,12 @@ public class CircleImageView extends ImageView {
 
     /**
      * this animates between the icon set in the imageview and the completed icon. does as crossfade animation
+     *
      * @param show set flag
      * @param hideOnComplete if true animate outside ring out after progress complete
      */
-    public void showCompleted(boolean show, boolean hideOnComplete){
-        if(show){
+    public void showCompleted(boolean show, boolean hideOnComplete) {
+        if (show) {
             crossfader.startTransition(500);
         }
         if (hideOnComplete) {
