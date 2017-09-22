@@ -32,7 +32,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.CoordinatorLayout.DefaultBehavior;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -47,7 +46,7 @@ import java.util.List;
 /**
  * Created by kurt on 21 02 2015 .
  */
-@DefaultBehavior(FabButton.Behavior.class)
+@CoordinatorLayout.DefaultBehavior(FabButton.Behavior.class)
 public class FabButton extends FrameLayout implements CircleImageView.OnFabViewListener {
 
     private CircleImageView circle;
@@ -137,6 +136,10 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.setColor(color);
     }
 
+    public void setProgressColor(int color) {
+        ring.setProgressColor(color);
+    }
+
     public void setIcon(Drawable icon, Drawable endIcon) {
         circle.setIcon(icon, endIcon);
     }
@@ -204,7 +207,6 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
             ring.setVisibility(View.GONE);
         }
     }
-
 
 
 
