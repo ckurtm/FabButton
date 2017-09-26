@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion compileVersion
+    buildToolsVersion toolsVersion
 
     defaultConfig {
         applicationId "com.mbanje.fabprogress"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion targetVersion
         versionCode 1
         versionName "1.0"
     }
@@ -25,9 +25,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-//    compile project(':fabbutton')
-    compile 'com.android.support:cardview-v7:25.1.0'
-    compile 'mbanje.kurt:fabbutton:1.2.4@aar'
+    implementation "com.android.support:appcompat-v7:${googleLibraryVersion}"
+    implementation "com.android.support:design:${googleLibraryVersion}"
+    implementation "com.android.support:cardview-v7:${googleLibraryVersion}"
+    implementation project(':fabbutton')
+//    compile 'mbanje.kurt:fabbutton:1.2.4@aar'
 }

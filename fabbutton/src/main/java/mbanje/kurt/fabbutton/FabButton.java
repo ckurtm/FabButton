@@ -29,7 +29,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -37,7 +36,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
 import java.util.List;
@@ -60,24 +58,24 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
     public FabButton(Context context) {
         super(context);
-        init(context,null, 0);
+        init(context, null, 0);
     }
 
     public FabButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context,attrs, 0);
+        init(context, attrs, 0);
     }
 
     public FabButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context,attrs, defStyle);
+        init(context, attrs, defStyle);
     }
 
-    protected void init(Context context,AttributeSet attrs, int defStyle) {
-        View v = View.inflate(context, R.layout.widget_fab_button,this);
+    protected void init(Context context, AttributeSet attrs, int defStyle) {
+        View v = View.inflate(context, R.layout.widget_fab_button, this);
         setClipChildren(false);
         circle = (CircleImageView) v.findViewById(R.id.fabbutton_circle);
-        ring = (ProgressRingView)v.findViewById(R.id.fabbutton_ring);
+        ring = (ProgressRingView) v.findViewById(R.id.fabbutton_ring);
         circle.setFabViewListener(this);
         ring.setFabViewListener(this);
         int color = Color.BLACK;
@@ -85,7 +83,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         int animDuration = 4000;
         int icon = -1;
         float maxProgress = 0;
-        float progress =0;
+        float progress = 0;
         if (attrs != null) {
             final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
             color = a.getColor(R.styleable.CircleImageView_android_color, Color.BLACK);
@@ -114,8 +112,8 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         ring.setAnimDuration(animDuration);
         ring.setRingWidthRatio(ringWidthRatio);
         ring.setIndeterminate(indeterminate);
-        if(icon != -1){
-            circle.setIcon(icon,endBitmapResource);
+        if (icon != -1) {
+            circle.setIcon(icon, endBitmapResource);
         }
     }
 
@@ -123,11 +121,11 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.setShowShadow(showShadow);
     }
 
-    public void setIcon(int resource,int endIconResource){
-        circle.setIcon(resource,endIconResource);
+    public void setIcon(int resource, int endIconResource) {
+        circle.setIcon(resource, endIconResource);
     }
 
-    public void showShadow(boolean show){
+    public void showShadow(boolean show) {
         circle.setShowShadow(show);
         invalidate();
     }
@@ -144,11 +142,13 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         circle.setIcon(icon, endIcon);
     }
 
-    public void resetIcon(){
+    public void resetIcon() {
         circle.resetIcon();
     }
+
     /**
      * sets the progress to indeterminate or not
+     *
      * @param indeterminate the flag
      */
     public void setIndeterminate(boolean indeterminate) {
@@ -165,9 +165,10 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
     /**
      * shows the animation ring
+     *
      * @param show shows animation ring when set to true
      */
-    public void showProgress(boolean show){
+    public void showProgress(boolean show) {
         circle.showRing(show);
     }
 
@@ -183,18 +184,19 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
 
     /**
      * sets current progress
+     *
      * @param progress the current progress to set value too
      */
-    public void setProgress(float progress){
+    public void setProgress(float progress) {
         ring.setProgress(progress);
     }
 
     @Override
     public void onProgressVisibilityChanged(boolean visible) {
-        if(visible){
+        if (visible) {
             ring.setVisibility(View.VISIBLE);
             ring.startAnimation();
-        }else{
+        } else {
             ring.stopAnimation(true);
             ring.setVisibility(View.GONE);
         }
@@ -209,11 +211,9 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
     }
 
 
-
     public static class Behavior extends CoordinatorLayout.Behavior<FabButton> {
         // We only support the FAB <> Snackbar shift movement on Honeycomb and above. This is
         // because we can use view translation properties which greatly simplifies the code.
-        private static final boolean SNACKBAR_BEHAVIOR_ENABLED = Build.VERSION.SDK_INT >= 11;
 
         private Rect mTmpRect;
         private boolean mIsAnimatingOut;
@@ -223,7 +223,7 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         public boolean layoutDependsOn(CoordinatorLayout parent, FabButton child,
                                        View dependency) {
             // We're dependent on all SnackbarLayouts (if enabled)
-            return SNACKBAR_BEHAVIOR_ENABLED && dependency instanceof Snackbar.SnackbarLayout;
+            return dependency instanceof Snackbar.SnackbarLayout;
         }
 
         @Override
@@ -260,11 +260,11 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         final int getMinimumHeightForVisibleOverlappingContent(AppBarLayout bar) {
             int topInset = 0;
             int minHeight = ViewCompat.getMinimumHeight(bar);
-            if(minHeight != 0) {
+            if (minHeight != 0) {
                 return minHeight * 2 + topInset;
             } else {
                 int childCount = bar.getChildCount();
-                return childCount >= 1?ViewCompat.getMinimumHeight(bar.getChildAt(childCount - 1)) * 2 + topInset:0;
+                return childCount >= 1 ? ViewCompat.getMinimumHeight(bar.getChildAt(childCount - 1)) * 2 + topInset : 0;
             }
         }
 
@@ -309,7 +309,6 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
         private void animateIn(FabButton button) {
             button.setVisibility(View.VISIBLE);
 
-            if (Build.VERSION.SDK_INT >= 14) {
                 ViewCompat.animate(button)
                         .scaleX(1f)
                         .scaleY(1f)
@@ -318,59 +317,32 @@ public class FabButton extends FrameLayout implements CircleImageView.OnFabViewL
                         .withLayer()
                         .setListener(null)
                         .start();
-            } else {
-                Animation anim = android.view.animation.AnimationUtils.loadAnimation(
-                        button.getContext(), R.anim.design_fab_in);
-                anim.setDuration(200);
-                anim.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
-                button.startAnimation(anim);
-            }
         }
 
         private void animateOut(final FabButton button) {
-            if (Build.VERSION.SDK_INT >= 14) {
-                ViewCompat.animate(button)
-                        .scaleX(0f)
-                        .scaleY(0f)
-                        .alpha(0f)
-                        .setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
-                        .withLayer()
-                        .setListener(new ViewPropertyAnimatorListener() {
-                            @Override
-                            public void onAnimationStart(View view) {
-                                mIsAnimatingOut = true;
-                            }
+            ViewCompat.animate(button)
+                    .scaleX(0f)
+                    .scaleY(0f)
+                    .alpha(0f)
+                    .setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
+                    .withLayer()
+                    .setListener(new ViewPropertyAnimatorListener() {
+                        @Override
+                        public void onAnimationStart(View view) {
+                            mIsAnimatingOut = true;
+                        }
 
-                            @Override
-                            public void onAnimationCancel(View view) {
-                                mIsAnimatingOut = false;
-                            }
+                        @Override
+                        public void onAnimationCancel(View view) {
+                            mIsAnimatingOut = false;
+                        }
 
-                            @Override
-                            public void onAnimationEnd(View view) {
-                                mIsAnimatingOut = false;
-                                view.setVisibility(View.GONE);
-                            }
-                        }).start();
-            } else {
-                Animation anim = android.view.animation.AnimationUtils.loadAnimation(
-                        button.getContext(), R.anim.design_fab_out);
-                anim.setInterpolator(AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
-                anim.setDuration(200);
-                anim.setAnimationListener(new AnimationUtils.AnimationListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        mIsAnimatingOut = true;
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mIsAnimatingOut = false;
-                        button.setVisibility(View.GONE);
-                    }
-                });
-                button.startAnimation(anim);
-            }
+                        @Override
+                        public void onAnimationEnd(View view) {
+                            mIsAnimatingOut = false;
+                            view.setVisibility(View.GONE);
+                        }
+                    }).start();
         }
     }
 }
